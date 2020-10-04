@@ -20,40 +20,62 @@
  * @return {number}
  */
 var findPairs = function(nums, k) {
+  
+  // O(nlogn) approach sorting the array and using the multiple pointer approach
+
+  // if(!nums || nums.length < 2){
+  //   return 0;
+  // }
+  // nums = nums.sort(function (a, b) {
+  //   return a-b;
+  // });
+  // let start =0, end = 1, counter = 0, startNumber = null, endNumber = null;
+  // while(start < nums.length -1 && end < nums.length){
+  //  
+  //   if(nums[start] === startNumber && nums[end] === endNumber){ // To Find unique pairs only, Not to repeat the pair
+  //     start++;
+  //     continue;
+  //   }
+  //  
+  //   startNumber = null, endNumber = null;
+  //
+  //   if(nums[end] - nums[start] === k){
+  //     startNumber = nums[start];
+  //     endNumber = nums[end];
+  //     counter++;
+  //     start++;
+  //     end++;
+  //   }
+  //   else if(nums[end] - nums[start] > k){
+  //     start++;
+  //   }
+  //   else{
+  //     end++;
+  //   }
+  //   if(start === end){
+  //     end++;
+  //   }
+  // } 
+  // return counter;
+  
+  
+  // O(n) solution using hashmap but extra space complexity of O(n)
 
   if(!nums || nums.length < 2){
     return 0;
   }
-  nums = nums.sort(function (a, b) {
-    return a-b;
-  });
-  let start =0, end = 1, counter = 0, startNumber = null, endNumber = null;
-  while(start < nums.length -1 && end < nums.length){
-    
-    if(nums[start] === startNumber && nums[end] === endNumber){ // To Find unique pairs only, Not to repeat the pair
-      start++;
-      continue;
-    }
-    
-    startNumber = null, endNumber = null;
-
-    if(nums[end] - nums[start] === k){
-      startNumber = nums[start];
-      endNumber = nums[end];
+  
+  let countOfNums = {}, counter = 0;
+  for(let i=0; i< nums.length; i++){
+    countOfNums[nums[i]] = (countOfNums[nums[i]] || 0) + 1;
+  }
+  let b;
+  for(let j in countOfNums){
+    b = parseInt(j)+k;
+    if((k !=0 && countOfNums[b]) || (k ==0 && countOfNums[b] > 1) ){
       counter++;
-      start++;
-      end++;
     }
-    else if(nums[end] - nums[start] > k){
-      start++;
-    }
-    else{
-      end++;
-    }
-    if(start === end){
-      end++;
-    }
-  } 
+  }
   return counter;
 };
 
