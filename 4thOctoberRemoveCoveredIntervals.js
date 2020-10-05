@@ -34,26 +34,29 @@ var removeCoveredIntervals = function(intervals) {
 
   // O(nlogn) solution with sorting
 
-  intervals = intervals.sort(function (a, b) {
+  let sortComparotor = (a, b) => {
+    if(a[0] === b[0]){
+      return b[1] - a[1];
+    }
     return a[0] - b[0];
-  });
-  for (let i = 0; i < intervals.length; i++) {
-    if(i >= 1){
-      if (intervals[i][0] >= intervals[i - 1][0] && intervals[i][1] <= intervals[i - 1][1]) {
-        intervals.splice(i, 1);
-        i--;
-        continue;
-      }
+  };
+
+  intervals = intervals.sort(sortComparotor);
+  let max = intervals[0][1];
+  let result = intervals.length;
+  
+  for (let i = 1; i < intervals.length; i++) {
+    
+    // Since intervals is already sorted on 1st element then no need to comapare that, it is already in interval
+    // Comparing 2nd element is less then max, then it will be in interval, max will be the maximum value in the element 
+    // previous to ot
+    if (intervals[i][1] <= max) {
+      result--;
     }
-    if(i < intervals.length - 1){
-      if(intervals[i][0] === intervals[i+1][0] && intervals[i][1] <= intervals[i+1][1]){
-        intervals.splice(i, 1);
-        i--;
-        continue;
-      }
-    }
+    max = Math.max(max, intervals[i][1]);
+    
   }
-  return intervals.length;
+  return result;
 };
 
 console.log(`Total interval are `,removeCoveredIntervals([[1,2],[1,4],[3,4]]));
