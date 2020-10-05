@@ -21,31 +21,47 @@
  * @return {number}
  */
 var bitwiseComplement = function(N) {
-  if(N === 0){
+
+  //   O(logn) solution where we are doing bit by bit step operation
+  //
+  // if(N === 0){
+  //   return 1;
+  // }
+  // const noOfDigits = Math.floor(Math.log2(N));
+  // let binaryRepresentation = '', positionValue, tempValue = N, i;
+  // for(i=noOfDigits; i>=0; i--){
+  //   positionValue = Math.pow(2,i);
+  //   if(positionValue <=  tempValue){
+  //     tempValue -= positionValue;
+  //     binaryRepresentation += '1';
+  //   }
+  //   else{
+  //     binaryRepresentation += '0';
+  //   }
+  // }
+  // let complimentBinary = '';
+  // for(i=0; i<binaryRepresentation.length; i++){
+  //   if(binaryRepresentation[i] === '1'){
+  //     complimentBinary += '0';
+  //   }
+  //   else{
+  //     complimentBinary += '1';
+  //   }
+  // }
+  // return parseInt(complimentBinary, 2);
+
+  if (N === 0){
     return 1;
   }
-  const noOfDigits = Math.floor(Math.log2(N));
-  let binaryRepresentation = '', positionValue, tempValue = N, i;
-  for(i=noOfDigits; i>=0; i--){
-    positionValue = Math.pow(2,i);
-    if(positionValue <=  tempValue){
-      tempValue -= positionValue;
-      binaryRepresentation += '1';
-    }
-    else{
-      binaryRepresentation += '0';
-    }
-  }
-  let complimentBinary = '';
-  for(i=0; i<binaryRepresentation.length; i++){
-    if(binaryRepresentation[i] === '1'){
-      complimentBinary += '0';
-    }
-    else{
-      complimentBinary += '1';
-    } 
-  }
-  return parseInt(complimentBinary, 2);
 
+  let power = 1, ans = 0;
+  while (N>0) {
+    if((N & 1) === 0){
+      ans += 1*power;
+    }
+    power *= 2;
+    N = N >> 1;
+  }
+  return ans;
 };
-console.log(`Bitwise compliment is `,bitwiseComplement(10));
+console.log(`Bitwise compliment is `,bitwiseComplement(7));
