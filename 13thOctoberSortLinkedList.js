@@ -67,7 +67,7 @@ var sortList = function(head) {
       head = head.next.next
     }
     let mid = middlePreNode.next;
-    middlePreNode.next = null;
+    middlePreNode.next = null; // Turning Mid Previous to null so that it refers till middle only not after that
     return mid;
   };
   
@@ -78,14 +78,11 @@ var sortList = function(head) {
     }
     let middleNode = findMid(listNode);
 
-    let left = mergeSort(listNode);
+    let left = mergeSort(listNode); // it has reference till middle only
 
     let right = mergeSort(middleNode);
 
-
-    let mergeList = merge(left,right);
-
-    return mergeList;
+    return  merge(left,right);
     
   };
   
