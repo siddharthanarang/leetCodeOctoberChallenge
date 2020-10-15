@@ -8,6 +8,9 @@
 
  // Definition for singly-linked list.
 
+// 1st Aproach traverse the list, convert to array, sort that and form list again
+// Implement merge sort on list
+
 function ListNode(val, next) {
   this.val = (val===undefined ? 0 : val);
   this.next = (next===undefined ? null : next);
@@ -23,7 +26,7 @@ ListNode.prototype.push = function (val) {
   currentNode.next = newNode;
 
   return this;
-}
+};
 
 
 /**
